@@ -28,23 +28,23 @@ body {
 
 .container {
     width: 100%;
-    max-width: 480px;
+    max-width: 400px;
 }
 
 .calculator-card {
     background: #ffffff;
-    border-radius: 24px;
-    padding: 32px;
+    border-radius: 20px;
+    padding: 24px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 .logo {
-    max-width: 220px;
+    max-width: 180px;
     margin: 0 auto 0;
 }
 
@@ -68,16 +68,16 @@ body {
 .form-section {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    margin-bottom: 32px;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .section-label {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #374151;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .gender-selector {
@@ -103,23 +103,23 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 4px;
+    padding: 8px 12px;
     border: 2px solid #e5e7eb;
-    border-radius: 16px;
+    border-radius: 12px;
     transition: all 0.3s ease;
     background: #f9fafb;
 }
 
 .gender-box svg {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     color: #9ca3af;
     transition: all 0.3s ease;
 }
 
 .gender-box span {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #6b7280;
     transition: all 0.3s ease;
@@ -152,16 +152,16 @@ body {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 16px;
-    padding: 16px;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding: 12px;
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    border-radius: 16px;
+    border-radius: 12px;
 }
 
 #ageValue {
-    width: 90px;
-    font-size: 48px;
+    width: 70px;
+    font-size: 36px;
     font-weight: 700;
     background: transparent;
     color: #667eea;
@@ -241,19 +241,19 @@ body {
 
 .results-section {
     background: #f9fafb;
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
 .result-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 16px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -263,30 +263,30 @@ body {
 }
 
 .result-label {
-    font-size: 14px;
+    font-size: 13px;
     color: #6b7280;
 }
 
 .result-value {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: #1a1a2e;
 }
 
 .result-item.total {
-    padding-top: 16px;
+    padding-top: 10px;
     border-top: 2px dashed #e5e7eb;
     border-bottom: none;
 }
 
 .result-item.total .result-label {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #374151;
 }
 
 .result-item.total .result-value {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
@@ -298,10 +298,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
+    gap: 6px;
+    padding: 10px 12px;
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    border-radius: 12px;
+    border-radius: 10px;
     color: #667eea;
 }
 
@@ -659,11 +659,11 @@ body {
     }
     
     .modal-header {
-        padding: 16px 20px;
+        padding: 12px 16px;
     }
     
     .modal-header h2 {
-        font-size: 16px;
+        font-size: 13px;
     }
     
     .modal-body {
