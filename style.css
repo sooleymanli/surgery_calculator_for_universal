@@ -319,43 +319,40 @@ body {
 /* Responsive */
 @media (max-width: 480px) {
     body {
-        padding: 16px;
+        padding: 10px;
+        min-height: 100vh;
+        min-height: 100dvh;
     }
 
     .logo-fixed {
         display: none;
     }
 
+    .container {
+        max-width: 100%;
+    }
+
     .calculator-card {
-        padding: 24px;
-        border-radius: 20px;
+        padding: 16px;
+        border-radius: 16px;
     }
 
-    .header h1 {
-        font-size: 20px;
+    .header {
+        margin-bottom: 12px;
     }
 
-    #ageValue {
-        font-size: 40px;
+    .logo {
+        max-width: 140px;
     }
 
-    .gender-box {
-        padding: 16px 12px;
+    .form-section {
+        gap: 12px;
+        margin-bottom: 12px;
     }
 
-    .gender-box svg {
-        width: 28px;
-        height: 28px;
-    }
-
-    .result-item.total .result-value {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 360px) {
-    .calculator-card {
-        padding: 20px;
+    .section-label {
+        font-size: 12px;
+        margin-bottom: 6px;
     }
 
     .gender-options {
@@ -363,11 +360,137 @@ body {
     }
 
     .gender-box {
-        padding: 14px 10px;
+        padding: 6px 8px;
+        border-radius: 10px;
+        gap: 2px;
+    }
+
+    .gender-box svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .gender-box span {
+        font-size: 12px;
+    }
+
+    .age-display {
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 10px;
     }
 
     #ageValue {
-        font-size: 36px;
+        font-size: 28px;
+        width: 55px;
+    }
+
+    .age-unit {
+        font-size: 14px;
+    }
+
+    #ageRange {
+        height: 6px;
+    }
+
+    #ageRange::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+
+    .range-labels {
+        margin-top: 4px;
+        font-size: 11px;
+    }
+
+    .results-section {
+        padding: 10px;
+        gap: 8px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+    .result-item {
+        padding-bottom: 8px;
+    }
+
+    .result-label {
+        font-size: 12px;
+    }
+
+    .result-value {
+        font-size: 13px;
+    }
+
+    .result-item.total {
+        padding-top: 8px;
+    }
+
+    .result-item.total .result-label {
+        font-size: 13px;
+    }
+
+    .result-item.total .result-value {
+        font-size: 16px;
+    }
+
+    .info-badge {
+        padding: 8px 10px;
+        gap: 5px;
+        border-radius: 8px;
+    }
+
+    .info-badge svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .info-badge span {
+        font-size: 11px;
+    }
+
+    .view-table-btn {
+        padding: 10px 14px;
+        margin-top: 10px;
+        font-size: 13px;
+        border-radius: 10px;
+        gap: 8px;
+    }
+
+    .view-table-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+    }
+
+    .calculator-card {
+        padding: 14px;
+    }
+
+    .gender-options {
+        gap: 6px;
+    }
+
+    .gender-box {
+        padding: 5px 6px;
+    }
+
+    #ageValue {
+        font-size: 24px;
+        width: 50px;
+    }
+
+    .results-section {
+        padding: 8px;
+    }
+
+    .result-item.total .result-value {
+        font-size: 15px;
     }
 }
 
