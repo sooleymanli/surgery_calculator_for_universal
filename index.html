@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sığorta Kalkulyatoru</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="logo-fixed">
+        <img src="logo_az_for_dark_mode.svg"Universal Hospital">
+    </div>
+    <div class="container">
+        <div class="calculator-card">
+            <div class="header">
+                <div class="logo">
+                    <img src="logo_universal.png" alt="Universal Hospital">
+                </div>
+        
+            </div>
+
+            <div class="form-section">
+                <div class="gender-selector">
+                    <label class="section-label">Cinsiyyət</label>
+                    <div class="gender-options">
+                        <label class="gender-option">
+                            <input type="radio" name="gender" value="kisi" checked>
+                            <span class="gender-box">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="10" cy="14" r="5" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M19 5L14 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M15 5H19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Kişi</span>
+                            </span>
+                        </label>
+                        <label class="gender-option">
+                            <input type="radio" name="gender" value="qadin">
+                            <span class="gender-box">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M12 14V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M9 19H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Qadın</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="age-selector">
+                    <label class="section-label">Yaş</label>
+                    <div class="age-display">
+                        <span id="ageValue">18</span>
+                        <span class="age-unit">yaş</span>
+                    </div>
+                    <div class="range-container">
+                        <input type="range" id="ageRange" min="18" max="55" value="18">
+                        <div class="range-labels">
+                            <span>18</span>
+                            <span>55</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="result-item">
+                    <span class="result-label">Sığorta haqqı</span>
+                    <span class="result-value" id="sigortaHaqqi">53.39 AZN</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Klinika Komissiya</span>
+                    <span class="result-value" id="klinikaKomissiya">19.20 AZN</span>
+                </div>
+                <div class="result-item total">
+                    <span class="result-label">Cəmi</span>
+                    <span class="result-value" id="cemi">80.00 AZN</span>
+                </div>
+            </div>
+
+            <div class="info-badge">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="8" r="1" fill="currentColor"/>
+                </svg>
+                <span>Cəmi məbləğ 80 AZN sabit qalır</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        <span>Powered by</span>
+        <img src="discovery_white.svg" alt="Discovery Team">
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
