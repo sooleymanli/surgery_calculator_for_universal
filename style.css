@@ -322,6 +322,10 @@ body {
         padding: 16px;
     }
 
+    .logo-fixed {
+        display: none;
+    }
+
     .calculator-card {
         padding: 24px;
         border-radius: 20px;
@@ -527,6 +531,35 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.download-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.download-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.download-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .download-pdf-btn {

@@ -16,6 +16,24 @@ const premiumRates = {
     }
 };
 
+// Klinika komissiya faizləri
+const commissionRates = {
+    male: {
+        18: 24, 19: 24, 20: 24, 21: 24, 22: 24, 23: 24, 24: 24, 25: 24,
+        26: 24, 27: 24, 28: 23, 29: 23, 30: 23, 31: 23, 32: 23, 33: 23,
+        34: 23, 35: 23, 36: 23, 37: 23, 38: 22, 39: 22, 40: 22, 41: 22,
+        42: 21, 43: 21, 44: 21, 45: 20, 46: 20, 47: 19, 48: 19, 49: 18,
+        50: 17, 51: 17, 52: 16, 53: 15, 54: 14, 55: 12
+    },
+    female: {
+        18: 24, 19: 24, 20: 24, 21: 24, 22: 24, 23: 24, 24: 24, 25: 24,
+        26: 24, 27: 24, 28: 24, 29: 23, 30: 23, 31: 23, 32: 23, 33: 23,
+        34: 23, 35: 23, 36: 23, 37: 23, 38: 22, 39: 22, 40: 22, 41: 22,
+        42: 22, 43: 21, 44: 21, 45: 21, 46: 20, 47: 20, 48: 19, 49: 18,
+        50: 18, 51: 17, 52: 16, 53: 15, 54: 14, 55: 13
+    }
+};
+
 // DOM elementləri
 const ageRange = document.getElementById('ageRange');
 const ageValue = document.getElementById('ageValue');
@@ -32,20 +50,20 @@ function calculate() {
     const age = parseInt(ageRange.value);
     const gender = document.querySelector('input[name="gender"]:checked').value;
     
-    // Sığorta haqqını cədvəldən götür
+    // Sığorta haqqını və komissiya faizini cədvəldən götür
     let sigortaHaqqi;
+    let commissionPercent;
     if (gender === 'kisi') {
         sigortaHaqqi = premiumRates.male[age];
+        commissionPercent = commissionRates.male[age];
     } else {
         sigortaHaqqi = premiumRates.female[age];
+        commissionPercent = commissionRates.female[age];
     }
-    
-    // Klinika komissiyası = 80 - Sığorta haqqı
-    const klinikaKomissiya = CEMI_MEBLEC - sigortaHaqqi;
     
     // Nəticələri göstər
     sigortaHaqqiEl.textContent = sigortaHaqqi.toFixed(2) + ' AZN';
-    klinikaKomissiyaEl.textContent = klinikaKomissiya.toFixed(2) + ' AZN';
+    klinikaKomissiyaEl.textContent = commissionPercent + '%';
     cemiEl.textContent = CEMI_MEBLEC.toFixed(2) + ' AZN';
     
     // Animasiya effekti
@@ -147,60 +165,47 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// PDF Download funksiyası
+// Excel Download funksiyası
+const downloadExcelBtn = document.getElementById('downloadExcel');
+downloadExcelBtn.addEventListener('click', function() {
+    // Data hazırla
+    const data = [
+        ['Yaş', 'Sığorta haqqı (Kişi)', 'Sığorta haqqı (Qadın)', 'Klinika komissiya (Kişi)', 'Klinika komissiya (Qadın)']
+    ];
+    
+    for (let age = 18; age <= 55; age++) {
+        data.push([
+            age,
+            premiumRates.male[age],
+            premiumRates.female[age],
+            commissionRates.male[age] + '%',
+            commissionRates.female[age] + '%'
+        ]);
+    }
+    
+    // Workbook yarat
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sığorta Cədvəli');
+    
+    // Sütun genişliklərini ayarla
+    ws['!cols'] = [
+        { wch: 6 },
+        { wch: 18 },
+        { wch: 18 },
+        { wch: 22 },
+        { wch: 22 }
+    ];
+    
+    // Fayl yüklə
+    XLSX.writeFile(wb, 'Sigorta_Haqqi_Cedveli.xlsx');
+});
+
+// PDF Download funksiyası - hazır fayl
 const downloadPdfBtn = document.getElementById('downloadPdf');
-
 downloadPdfBtn.addEventListener('click', function() {
-    const element = document.getElementById('tableContent');
-    
-    // Müvəqqəti olaraq height limitini götür
-    const originalMaxHeight = element.style.maxHeight;
-    const originalOverflow = element.style.overflow;
-    element.style.maxHeight = 'none';
-    element.style.overflow = 'visible';
-
-    
-    const opt = {
-        margin: [3, 3, 3, 3],
-        filename: 'Sigorta_Haqqi_Cedveli.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-            scale: 1,
-            useCORS: true,
-            logging: false
-        },
-        jsPDF: { unit: 'mm', format: [297, 450], orientation: 'portrait' }
-    };
-    
-    // Button-u deaktiv et
-    downloadPdfBtn.disabled = true;
-    downloadPdfBtn.innerHTML = `
-        <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.3"/>
-            <path d="M12 2C6.48 2 2 6.48 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Yüklənir...
-    `;
-    
-    html2pdf().set(opt).from(element).save().then(function() {
-        // Ribbon-i sil
-        const pdfRibbon = document.getElementById('pdfRibbon');
-        if (pdfRibbon) pdfRibbon.remove();
-        element.style.position = '';
-        
-        // Height limitini geri qaytar
-        element.style.maxHeight = originalMaxHeight;
-        element.style.overflow = originalOverflow;
-        
-        // Button-u yenidən aktiv et
-        downloadPdfBtn.disabled = false;
-        downloadPdfBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            PDF
-        `;
-    });
+    const link = document.createElement('a');
+    link.href = 'SigortaHaqqi_Cedveli.pdf';
+    link.download = 'SigortaHaqqi_Cedveli.pdf';
+    link.click();
 });
