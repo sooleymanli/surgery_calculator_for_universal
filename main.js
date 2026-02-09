@@ -75,7 +75,36 @@ function updateRangeProgress() {
 
 // Event listeners
 ageRange.addEventListener('input', function() {
-    ageValue.textContent = this.value;
+    ageValue.value = this.value;
+    updateRangeProgress();
+    calculate();
+});
+
+// Yaş input-u üçün event listener
+ageValue.addEventListener('input', function() {
+    let value = parseInt(this.value);
+    
+    // Boş dəyər üçün
+    if (isNaN(value)) return;
+    
+    // Yalnız valid aralıqda hesabla
+    if (value >= 18 && value <= 55) {
+        ageRange.value = value;
+        updateRangeProgress();
+        calculate();
+    }
+});
+
+// Focus itirdikdə limitləri yoxla
+ageValue.addEventListener('blur', function() {
+    let value = parseInt(this.value);
+    if (isNaN(value) || value < 18) {
+        this.value = 18;
+        ageRange.value = 18;
+    } else if (value > 55) {
+        this.value = 55;
+        ageRange.value = 55;
+    }
     updateRangeProgress();
     calculate();
 });
@@ -87,3 +116,87 @@ genderInputs.forEach(input => {
 // İlk hesablama
 updateRangeProgress();
 calculate();
+
+// Modal funksionallığı
+const openModalBtn = document.getElementById('openModal');
+const closeModalBtn = document.getElementById('closeModal');
+const modalOverlay = document.getElementById('modalOverlay');
+
+openModalBtn.addEventListener('click', function() {
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+});
+
+closeModalBtn.addEventListener('click', function() {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// ESC düyməsi ilə bağlama
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// PDF Download funksiyası
+const downloadPdfBtn = document.getElementById('downloadPdf');
+
+downloadPdfBtn.addEventListener('click', function() {
+    const element = document.getElementById('tableContent');
+    
+    // Müvəqqəti olaraq height limitini götür
+    const originalMaxHeight = element.style.maxHeight;
+    const originalOverflow = element.style.overflow;
+    element.style.maxHeight = 'none';
+    element.style.overflow = 'visible';
+
+    
+    const opt = {
+        margin: [3, 3, 3, 3],
+        filename: 'Sigorta_Haqqi_Cedveli.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 1,
+            useCORS: true,
+            logging: false
+        },
+        jsPDF: { unit: 'mm', format: [297, 450], orientation: 'portrait' }
+    };
+    
+    // Button-u deaktiv et
+    downloadPdfBtn.disabled = true;
+    downloadPdfBtn.innerHTML = `
+        <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Yüklənir...
+    `;
+    
+    html2pdf().set(opt).from(element).save().then(function() {
+
+        // Height limitini geri qaytar
+        element.style.maxHeight = originalMaxHeight;
+        element.style.overflow = originalOverflow;
+        
+        // Button-u yenidən aktiv et
+        downloadPdfBtn.disabled = false;
+        downloadPdfBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            PDF
+        `;
+    });
+});

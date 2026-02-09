@@ -6,6 +6,7 @@
     <title>Sığorta Kalkulyatoru</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="logo-fixed">
@@ -52,7 +53,7 @@
                 <div class="age-selector">
                     <label class="section-label">Yaş</label>
                     <div class="age-display">
-                        <span id="ageValue">18</span>
+                        <input type="number" id="ageValue" min="18" max="55" value="18">
                         <span class="age-unit">yaş</span>
                     </div>
                     <div class="range-container">
@@ -86,13 +87,100 @@
                     <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     <circle cx="12" cy="8" r="1" fill="currentColor"/>
                 </svg>
-                <span>Cəmi məbləğ 80 AZN sabit qalır</span>
+                <span>Cəmi məbləğ 80 AZN olaraq sabit qalır</span>
+            </div>
+
+            <button class="view-table-btn" id="openModal">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10H21M3 14H21M12 3V21M7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17V7C3 4.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Tam siyahıya bax
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Sığorta Haqqı Cədvəli</h2>
+                <div class="modal-header-buttons">
+                    <button class="download-pdf-btn" id="downloadPdf">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        PDF
+                    </button>
+                    <button class="modal-close" id="closeModal">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="tableContent">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Yaş</th>
+                            <th colspan="2">Sığorta haqqı</th>
+                            <th colspan="2">Klinikaya veriləcək komissiya</th>
+                        </tr>
+                        <tr>
+                            <th>Kişi</th>
+                            <th>Qadın</th>
+                            <th>Kişi</th>
+                            <th>Qadın</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>18</td><td>53,39</td><td>53,30</td><td>26,61</td><td>26,70</td></tr>
+                        <tr><td>19</td><td>53,42</td><td>53,33</td><td>26,58</td><td>26,67</td></tr>
+                        <tr><td>20</td><td>53,47</td><td>53,38</td><td>26,53</td><td>26,62</td></tr>
+                        <tr><td>21</td><td>53,49</td><td>53,40</td><td>26,51</td><td>26,60</td></tr>
+                        <tr><td>22</td><td>53,55</td><td>53,46</td><td>26,45</td><td>26,54</td></tr>
+                        <tr><td>23</td><td>53,59</td><td>53,50</td><td>26,41</td><td>26,50</td></tr>
+                        <tr><td>24</td><td>53,68</td><td>53,59</td><td>26,32</td><td>26,41</td></tr>
+                        <tr><td>25</td><td>53,69</td><td>53,61</td><td>26,31</td><td>26,39</td></tr>
+                        <tr><td>26</td><td>53,78</td><td>53,69</td><td>26,22</td><td>26,31</td></tr>
+                        <tr><td>27</td><td>53,83</td><td>53,74</td><td>26,17</td><td>26,26</td></tr>
+                        <tr><td>28</td><td>53,92</td><td>53,83</td><td>26,08</td><td>26,17</td></tr>
+                        <tr><td>29</td><td>53,99</td><td>53,90</td><td>26,01</td><td>26,10</td></tr>
+                        <tr><td>30</td><td>54,10</td><td>54,01</td><td>25,90</td><td>25,99</td></tr>
+                        <tr><td>31</td><td>54,14</td><td>54,06</td><td>25,86</td><td>25,94</td></tr>
+                        <tr><td>32</td><td>54,43</td><td>54,34</td><td>25,57</td><td>25,66</td></tr>
+                        <tr><td>33</td><td>54,50</td><td>54,40</td><td>25,50</td><td>25,60</td></tr>
+                        <tr><td>34</td><td>54,53</td><td>54,43</td><td>25,47</td><td>25,57</td></tr>
+                        <tr><td>35</td><td>54,70</td><td>54,59</td><td>25,30</td><td>25,41</td></tr>
+                        <tr><td>36</td><td>54,81</td><td>54,70</td><td>25,19</td><td>25,30</td></tr>
+                        <tr><td>37</td><td>54,98</td><td>54,87</td><td>25,02</td><td>25,13</td></tr>
+                        <tr><td>38</td><td>55,27</td><td>55,16</td><td>24,73</td><td>24,84</td></tr>
+                        <tr><td>39</td><td>55,32</td><td>55,21</td><td>24,68</td><td>24,79</td></tr>
+                        <tr><td>40</td><td>55,60</td><td>55,47</td><td>24,40</td><td>24,53</td></tr>
+                        <tr><td>41</td><td>55,88</td><td>55,76</td><td>24,12</td><td>24,24</td></tr>
+                        <tr><td>42</td><td>56,14</td><td>56,01</td><td>23,86</td><td>23,99</td></tr>
+                        <tr><td>43</td><td>56,52</td><td>56,38</td><td>23,48</td><td>23,62</td></tr>
+                        <tr><td>44</td><td>56,79</td><td>56,67</td><td>23,21</td><td>23,33</td></tr>
+                        <tr><td>45</td><td>57,31</td><td>57,17</td><td>22,69</td><td>22,83</td></tr>
+                        <tr><td>46</td><td>57,69</td><td>57,55</td><td>22,31</td><td>22,45</td></tr>
+                        <tr><td>47</td><td>58,36</td><td>58,24</td><td>21,64</td><td>21,76</td></tr>
+                        <tr><td>48</td><td>58,98</td><td>58,86</td><td>21,02</td><td>21,14</td></tr>
+                        <tr><td>49</td><td>59,61</td><td>59,51</td><td>20,39</td><td>20,49</td></tr>
+                        <tr><td>50</td><td>60,59</td><td>60,48</td><td>19,41</td><td>19,52</td></tr>
+                        <tr><td>51</td><td>61,58</td><td>61,41</td><td>18,42</td><td>18,59</td></tr>
+                        <tr><td>52</td><td>62,26</td><td>62,08</td><td>17,74</td><td>17,92</td></tr>
+                        <tr><td>53</td><td>63,45</td><td>63,27</td><td>16,55</td><td>16,73</td></tr>
+                        <tr><td>54</td><td>64,87</td><td>64,70</td><td>15,13</td><td>15,30</td></tr>
+                        <tr><td>55</td><td>66,17</td><td>66,05</td><td>13,83</td><td>13,95</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div class="powered-by">
-        <span>Powered by</span>
         <img src="discovery_white.svg" alt="Discovery Team">
     </div>
 
