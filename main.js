@@ -183,7 +183,11 @@ downloadPdfBtn.addEventListener('click', function() {
     `;
     
     html2pdf().set(opt).from(element).save().then(function() {
-
+        // Ribbon-i sil
+        const pdfRibbon = document.getElementById('pdfRibbon');
+        if (pdfRibbon) pdfRibbon.remove();
+        element.style.position = '';
+        
         // Height limitini geri qaytar
         element.style.maxHeight = originalMaxHeight;
         element.style.overflow = originalOverflow;
