@@ -584,7 +584,6 @@ body {
     .mobile-footer img {
         height: 14px;
         width: auto;
-        filter: brightness(0) saturate(100%) invert(45%) sepia(67%) saturate(678%) hue-rotate(203deg) brightness(95%) contrast(91%);
     }
 }
 
